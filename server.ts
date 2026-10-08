@@ -5,6 +5,7 @@ import { Server as SocketIOServer } from 'socket.io';
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = Number(process.env.PORT) || 3001;
+const basePath = '/agendamento';
 const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3001')
 	.split(',')
 	.map((origin) => origin.trim())
@@ -15,6 +16,13 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
 	const httpServer = createServer((req, res) => {
+		const requestUrl = new URL(req.url || '/', 'http://localhost');
+		if (requestUrl.pathname === '/') {
+			res.writeHead(307, { Location: `${basePath}/${requestUrl.search}` });
+			res.end();
+			return;
+		}
+
 		handle(req, res);
 	});
 

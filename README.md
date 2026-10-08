@@ -71,11 +71,11 @@ pnpm start
 bun start
 ```
 
-Abra [http://localhost:3001](http://localhost:3001) com o navegador.
+Abra [http://localhost:3001/agendamento](http://localhost:3001/agendamento) com o navegador.
 
 ## Banco de dados com Docker
 
-Para rodar apenas o banco no Docker e desenvolver a aplicação no computador, configure no `.env` a `DATABASE_URL` com host `localhost`, porta igual a `MYSQL_PORT` e banco/usuário/senha iguais a `MYSQL_DATABASE`, `MYSQL_USER` e `MYSQL_PASSWORD`. Preserve as demais configurações caso o `.env` já exista.
+Para rodar apenas o banco no Docker e desenvolver a aplicação no computador, configure no `.env` a `DATABASE_URL` com host `localhost`, porta igual a `MYSQL_PORT` (padrão `3307`) e banco/usuário/senha iguais a `MYSQL_DATABASE`, `MYSQL_USER` e `MYSQL_PASSWORD`. Preserve as demais configurações caso o `.env` já exista.
 
 ```bash
 docker compose up -d --wait db
@@ -91,6 +91,6 @@ O Docker Compose inicia um MySQL 8.4 com volume persistente. Copie `example.env`
 docker compose up --build
 ```
 
-O serviço da aplicação aguarda o MySQL ficar saudável e executa `prisma migrate deploy` antes de iniciar. O banco fica disponível no host em `localhost:3306`; para desenvolvimento fora do Docker, use a `DATABASE_URL` de `example.env`. Os dados permanecem no volume `mysql-data` ao executar `docker compose down`.
+O serviço da aplicação aguarda o MySQL ficar saudável e executa `prisma migrate deploy` antes de iniciar. O banco fica disponível no host em `localhost:3307`; para desenvolvimento fora do Docker, use a `DATABASE_URL` de `example.env`. Os dados permanecem no volume `mysql-data` ao executar `docker compose down`.
 
 As credenciais padrão do Compose são somente para desenvolvimento. Altere `MYSQL_PASSWORD`, `MYSQL_ROOT_PASSWORD` e `DATABASE_URL_DOCKER` em `.env` antes de usar em qualquer ambiente compartilhado.
